@@ -5,3 +5,5 @@ request headers. It uses `TcpStream` for the connection and `BufReader` for effi
 from the connection until it hits the end of the HTTP headers, then collects and prints these headers. 
 
 **Commit 2** 
+
+![Commit 2 screen capture](img.png)

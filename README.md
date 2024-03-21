@@ -22,3 +22,10 @@ It also showed me how to use Rust to open a file and send its contents over the 
 - If this is the case, it responds with the status line `HTTP/1.1 200 OK` and serves the content of the `hello.html` file.
 - Otherwise, it issues a `HTTP/1.1 404 NOT FOUND` status line and serves the content of the `oops.html` file.
 ![img_2.png](img_2.png)
+
+
+**Commit 4**
+We've modified `handle_connection` function to handle different HTTP GET requests based on the request line.
+- When the request line is exactly "GET / HTTP/1.1", it implies the client is requesting the root directory of the server. The server responds by setting the HTTP status line to "HTTP/1.1 200 OK", indicating a successful request, and choosing "hello.html" as the file to return. This behavior is typical for serving a homepage or a primary entry point of a website.
+- If the request line matches "GET /sleep HTTP/1.1", the server interprets this as a command to simulate a delay before responding. It does this by pausing execution for 10 seconds, using Rust's thread::sleep(Duration::from_secs(10)). This could be used to test client handling of delayed server responses. After the delay, the server proceeds to respond with "HTTP/1.1 200 OK" and serves the same "hello.html" file. This case demonstrates how to implement artificial delays for specific endpoints.
+- For any other request lines that do not match the above two patterns, the server defaults to responding with "HTTP/1.1 404 NOT FOUND" and serves a "404.html" file. This case is used to handle unknown or unhandled requests, indicating to the client that the requested resource could not be found on the server

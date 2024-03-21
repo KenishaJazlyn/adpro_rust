@@ -4,3 +4,4 @@
 request headers. It uses `TcpStream` for the connection and `BufReader` for efficient reading. The function reads lines 
 from the connection until it hits the end of the HTTP headers, then collects and prints these headers. 
 
+**Commit 2** 

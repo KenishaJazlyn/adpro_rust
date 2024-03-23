@@ -42,3 +42,4 @@ How the ThreadPool works
 
 **Commit 6**
 
+The new function uses assert! for immediate panics on invalid input, suitable when such conditions are considered programming errors that should never occur in a correctly written program. The build function, on the other hand, allows for error handling and recovery, making it more flexible and user-friendly for situations where thread pool creation might fail due to runtime conditions.

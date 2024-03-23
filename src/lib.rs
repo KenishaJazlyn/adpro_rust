@@ -2,6 +2,20 @@ use std::{
     sync::{mpsc, Arc, Mutex},
     thread
 };
+#[derive(Debug)]
+pub enum PoolCreationError {
+    ZeroSize,
+}
+
+impl std::fmt::Display for PoolCreationError {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        match *self {
+            PoolCreationError::ZeroSize => write!(f, "ThreadPool size cannot be zero"),
+        }
+    }
+}
+
+impl std::error::Error for PoolCreationError {}
 
 pub struct ThreadPool {
     workers: Vec<Worker>,
@@ -11,9 +25,9 @@ pub struct ThreadPool {
 type Job = Box<dyn FnOnce() + Send + 'static>;
 
 impl ThreadPool {
-    pub fn build(size: usize) -> Result<ThreadPool, &'static str> {
+    pub fn build(size: usize) -> Result<ThreadPool, PoolCreationError> {
         if size<=0{
-            return Err("threadpool size must be greater than zero");
+            return Err(PoolCreationError::ZeroSize);
         }
         let mut workers = Vec::with_capacity(size);
         let (sender, receiver) = mpsc::channel();

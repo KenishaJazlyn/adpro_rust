@@ -39,3 +39,6 @@ How the ThreadPool works
 - `Incoming Connections`: As clients connect to the server, the main thread accepts the TCP connections. For each connection, it sends a job (the handle_connection function) to the thread pool.
 - `Job Execution`: Worker threads pick up these jobs from the queue. Since the job encapsulates handling a TCP connection, each worker effectively processes the HTTP request, generates the response, and sends it back to the client.
 - `Concurrency`: By using a thread pool, the server can handle multiple connections concurrently, up to the number of threads in the pool. This improves the server's responsiveness and scalability compared to a single-threaded or a new-thread-per-request model.
+
+**Commit 6**
+
